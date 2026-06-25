@@ -5,12 +5,18 @@ import NoteItem from "./NoteItem";
 export default function InputForm() {
   const [notes, setNotes] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [title, setTitle] = useState("");
 
   const handleAddNote = () => {
     if (inputValue.trim() !== "") {
-      const newNote = { date: new Date(), text: inputValue.trim() };
+      const newNote = {
+        date: new Date(),
+        text: inputValue.trim(),
+        title: title.trim(),
+      };
       setNotes([newNote, ...notes]);
       setInputValue("");
+      setTitle("");
     }
   };
 
@@ -22,6 +28,12 @@ export default function InputForm() {
   return (
     <>
       <div className="input-form">
+        <input
+          className="title-input"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Title"
+        />
         <textarea
           className="input-textarea"
           value={inputValue}

@@ -10,6 +10,7 @@ export default function NoteItem({ note, onDelete }) {
           X
         </button>
       </div>
+      {note.title && <div className="note-title">{note.title}</div>}
       <div className="note-text">{note.text}</div>
     </li>
   );
