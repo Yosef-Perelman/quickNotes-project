@@ -19,7 +19,7 @@ export default function InputForm() {
           className="input-textarea"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Your note"
+          placeholder="Your note..."
         />
         <button type="submit" className="add-button" onClick={handleAddNote}>
           Add
