@@ -5,6 +5,17 @@
   box-sizing: border-box;
 }
 
+.input-form-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: bisque;
+}
+
+.app-title {
+  text-decoration: underline;
+}
+
 .input-form {
   padding-top: 1vw;
   padding-bottom: 1vw;
@@ -12,19 +23,20 @@
   flex-direction: column;
   align-items: center;
   gap: 1vw;
-  border: solid;
-  width: 30vw;
-  margin: 1vw auto;
+  width: 100%;
+  background-color: antiquewhite;
 }
 
 .title-input {
+  font-weight: bold;
   width: 20vw;
   padding: 0.4vw 0 0.4vw 0.4vw;
 }
 
 .input-textarea {
+  font-weight: bold;
   width: 20vw;
-  min-height: 8vw;
+  min-height: 6vw;
   padding: 0.4vw 0 0 0.4vw;
   resize: none;
   overflow: hidden;
@@ -36,11 +48,10 @@
 }
 
 .notes-list {
-  margin: 1vw 9vw;
+  padding: 1vw 9vw;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
-  padding-left: 0;
   gap: 0.6vw;
 }
