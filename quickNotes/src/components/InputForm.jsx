@@ -7,9 +7,15 @@ export default function InputForm() {
 
   const handleAddNote = () => {
     if (inputValue.trim() !== "") {
-      setNotes([inputValue, ...notes]);
+      const newNote = { date: new Date(), text: inputValue.trim() };
+      setNotes([newNote, ...notes]);
       setInputValue("");
     }
+  };
+
+  const handleDeleteNote = (index) => {
+    confirm("Are you sure you want to delete this note?") &&
+      setNotes(notes.filter((_, i) => i !== index));
   };
 
   return (
@@ -28,7 +34,16 @@ export default function InputForm() {
       <ul className="notes-list">
         {notes.map((note, index) => (
           <li className="note-item" key={index}>
-            {note}
+            <div className="note-header">
+              <div className="note-date">{note.date.toLocaleString()}</div>
+              <button
+                className="delete-button"
+                onClick={() => handleDeleteNote(index)}
+              >
+                X
+              </button>
+            </div>
+            <div className="note-text">{note.text}</div>
           </li>
         ))}
       </ul>
