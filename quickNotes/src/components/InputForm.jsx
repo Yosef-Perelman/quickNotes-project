@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./InputForm.css";
 import NoteItem from "./NoteItem";
 
 export default function InputForm() {
   const [notes, setNotes] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const ref = useRef(null);
   const [title, setTitle] = useState("");
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+
+    const el = ref.current;
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  };
 
   const handleAddNote = () => {
     if (inputValue.trim() !== "") {
@@ -17,6 +26,9 @@ export default function InputForm() {
       setNotes([newNote, ...notes]);
       setInputValue("");
       setTitle("");
+
+      const el = ref.current;
+      el.style.height = "auto";
     }
   };
 
@@ -37,7 +49,8 @@ export default function InputForm() {
         <textarea
           className="input-textarea"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          ref={ref}
+          onChange={(e) => handleInputChange(e)}
           placeholder="Your note..."
         />
         <button type="submit" className="add-button" onClick={handleAddNote}>

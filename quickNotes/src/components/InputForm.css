@@ -26,6 +26,8 @@
   width: 20vw;
   min-height: 8vw;
   padding: 0.4vw 0 0 0.4vw;
+  resize: none;
+  overflow: hidden;
 }
 
 .add-button {
