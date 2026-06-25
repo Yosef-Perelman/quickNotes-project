@@ -55,7 +55,7 @@ export default function InputForm() {
 
       <div className="input-form-container">
         <div className="input-form">
-          <h3 className="app-title">Quick Notes</h3>
+          <h1 className="app-title">Quick Notes</h1>
 
           <input
             className="title-input"

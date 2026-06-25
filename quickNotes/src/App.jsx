@@ -1,5 +1,4 @@
 import "@mantine/core/styles.css";
-import "./App.css";
 import { MantineProvider } from "@mantine/core";
 import InputForm from "./components/InputForm.jsx";
 
