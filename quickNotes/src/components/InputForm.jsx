@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./InputForm.css";
+import NoteItem from "./NoteItem";
 
 export default function InputForm() {
   const [notes, setNotes] = useState([]);
@@ -33,18 +34,11 @@ export default function InputForm() {
       </div>
       <ul className="notes-list">
         {notes.map((note, index) => (
-          <li className="note-item" key={index}>
-            <div className="note-header">
-              <div className="note-date">{note.date.toLocaleString()}</div>
-              <button
-                className="delete-button"
-                onClick={() => handleDeleteNote(index)}
-              >
-                X
-              </button>
-            </div>
-            <div className="note-text">{note.text}</div>
-          </li>
+          <NoteItem
+            key={index}
+            note={note}
+            onDelete={() => handleDeleteNote(index)}
+          />
         ))}
       </ul>
     </>
