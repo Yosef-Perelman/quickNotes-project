@@ -1,0 +1,35 @@
+.input-form {
+  padding-top: 2vw;
+  padding-bottom: 0.8vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vw;
+  border: solid;
+  width: 30vw;
+  margin: 1vw auto;
+}
+
+.input-textarea {
+  width: 20vw;
+  min-height: 8vw;
+}
+
+.add-button {
+  width: 20vw;
+}
+
+.notes-list {
+  margin: 1vw 10vw;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  padding-left: 0;
+  gap: 0.5vw;
+}
+
+.note-item {
+  border: solid;
+  padding: 1vw;
+}
