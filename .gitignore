@@ -26,3 +26,5 @@ yarn-error.log*
 # misc
 *.log
 **/Thumbs.db
+
+review.md

@@ -123,28 +123,26 @@ export default function InputForm() {
           </div>
 
           <ul className="notes-list">
-            {notes
-              .filter(
-                (note) =>
-                  categoryFilter === "all" ||
-                  note.category === categoryFilter
-              )
-              .filter((note) => {
-                const q = searchQuery.trim().toLowerCase();
-                if (!q) return true;
-                return (
-                  note.title?.toLowerCase().includes(q) ||
-                  note.text.toLowerCase().includes(q)
-                );
-              })
-              .map((note, index) => (
-              <NoteItem
-                key={index}
-                note={note}
-                onDelete={() => handleDeleteNote(index)}
-                onEdit={() => setEditingIndex(index)}
-              />
-            ))}
+            {(() => {
+              const q = searchQuery.trim().toLowerCase();
+              return notes
+                .map((note, originalIndex) => ({ note, originalIndex }))
+                .filter(
+                  ({ note }) =>
+                    (categoryFilter === "all" || note.category === categoryFilter) &&
+                    (!q ||
+                      note.title?.toLowerCase().includes(q) ||
+                      note.text?.toLowerCase().includes(q))
+                )
+                .map(({ note, originalIndex }) => (
+                  <NoteItem
+                    key={originalIndex}
+                    note={note}
+                    onDelete={() => handleDeleteNote(originalIndex)}
+                    onEdit={() => setEditingIndex(originalIndex)}
+                  />
+                ));
+            })()}
           </ul>
         </div>
       </div>
