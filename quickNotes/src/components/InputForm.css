@@ -58,6 +58,10 @@
   gap: 20px;
 }
 
+.search-input {
+  padding-left: 5px;
+}
+
 .notes-list {
   list-style: none;
   display: flex;

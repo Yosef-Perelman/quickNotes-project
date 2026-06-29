@@ -15,6 +15,7 @@ export default function InputForm() {
   const [editingIndex, setEditingIndex] = useState(null);
   const [category, setCategory] = useState("personal");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const saveNotes = (newNotes) => {
     setNotes(newNotes);
@@ -113,13 +114,30 @@ export default function InputForm() {
               <option value="song">Song</option>
               <option value="joke">Joke</option>
             </select>
+            <input
+              className="search-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search notes..."
+            />
           </div>
 
           <ul className="notes-list">
-            {(categoryFilter !== "all"
-              ? notes.filter((note) => note.category === categoryFilter)
-              : notes
-            ).map((note, index) => (
+            {notes
+              .filter(
+                (note) =>
+                  categoryFilter === "all" ||
+                  note.category === categoryFilter
+              )
+              .filter((note) => {
+                const q = searchQuery.trim().toLowerCase();
+                if (!q) return true;
+                return (
+                  note.title?.toLowerCase().includes(q) ||
+                  note.text.toLowerCase().includes(q)
+                );
+              })
+              .map((note, index) => (
               <NoteItem
                 key={index}
                 note={note}
