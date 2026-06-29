@@ -14,6 +14,7 @@ export default function InputForm() {
   const [title, setTitle] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
   const [category, setCategory] = useState("personal");
+  const [categoryFilter, setCategoryFilter] = useState("all");
 
   const saveNotes = (newNotes) => {
     setNotes(newNotes);
@@ -99,16 +100,35 @@ export default function InputForm() {
           </button>
         </div>
 
-        <ul className="notes-list">
-          {notes.map((note, index) => (
-            <NoteItem
-              key={index}
-              note={note}
-              onDelete={() => handleDeleteNote(index)}
-              onEdit={() => setEditingIndex(index)}
-            />
-          ))}
-        </ul>
+        <div className="notes-list-container">
+          <div className="category-choose-container">
+            <div>Choose category to show:</div>
+            <select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+            >
+              <option value="all">All</option>
+              <option value="personal">Personal</option>
+              <option value="work">Work</option>
+              <option value="song">Song</option>
+              <option value="joke">Joke</option>
+            </select>
+          </div>
+
+          <ul className="notes-list">
+            {(categoryFilter !== "all"
+              ? notes.filter((note) => note.category === categoryFilter)
+              : notes
+            ).map((note, index) => (
+              <NoteItem
+                key={index}
+                note={note}
+                onDelete={() => handleDeleteNote(index)}
+                onEdit={() => setEditingIndex(index)}
+              />
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );

@@ -46,9 +46,19 @@
   width: 20vw;
   padding: 0.2vw 0;
 }
+.notes-list-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1vw 9vw;
+  gap: 20px;
+}
+
+.category-choose-container {
+  display: flex;
+  gap: 20px;
+}
 
 .notes-list {
-  padding: 1vw 9vw;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
