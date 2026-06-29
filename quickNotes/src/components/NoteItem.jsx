@@ -3,7 +3,7 @@ import "./NoteItem.css";
 
 export default function NoteItem({ note, onDelete, onEdit }) {
   return (
-    <li className="note-item">
+    <li className={`note-item ${note.category}`}>
       <div className="note-delete-container">
         <button className="delete-button" onClick={onDelete}>
           X

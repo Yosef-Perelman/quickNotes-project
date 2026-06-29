@@ -4,11 +4,21 @@ import NoteItem from "./NoteItem";
 import NoteModal from "./NoteModal.jsx";
 
 export default function InputForm() {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(() => {
+    const saved = localStorage.getItem("notes");
+    if (!saved) return [];
+    return JSON.parse(saved).map((n) => ({ ...n, date: new Date(n.date) }));
+  });
   const [inputValue, setInputValue] = useState("");
   const ref = useRef(null);
   const [title, setTitle] = useState("");
   const [editingIndex, setEditingIndex] = useState(null);
+  const [category, setCategory] = useState("personal");
+
+  const saveNotes = (newNotes) => {
+    setNotes(newNotes);
+    localStorage.setItem("notes", JSON.stringify(newNotes));
+  };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -24,10 +34,12 @@ export default function InputForm() {
         date: new Date(),
         text: inputValue.trim(),
         title: title.trim(),
+        category: category,
       };
-      setNotes([newNote, ...notes]);
+      saveNotes([newNote, ...notes]);
       setInputValue("");
       setTitle("");
+      setCategory("personal");
 
       const el = ref.current;
       el.style.height = "auto";
@@ -36,11 +48,11 @@ export default function InputForm() {
 
   const handleDeleteNote = (index) => {
     confirm("Are you sure you want to delete this note?") &&
-      setNotes(notes.filter((_, i) => i !== index));
+      saveNotes(notes.filter((_, i) => i !== index));
   };
 
   const handleSaveEdit = (updatedNote) => {
-    setNotes(notes.map((n, i) => (i === editingIndex ? updatedNote : n)));
+    saveNotes(notes.map((n, i) => (i === editingIndex ? updatedNote : n)));
     setEditingIndex(null);
   };
 
@@ -57,12 +69,23 @@ export default function InputForm() {
         <div className="input-form">
           <h1 className="app-title">Quick Notes</h1>
 
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="song">Song</option>
+            <option value="joke">Joke</option>
+          </select>
+
           <input
             className="title-input"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Title"
           />
+
           <textarea
             className="input-textarea"
             value={inputValue}
@@ -70,6 +93,7 @@ export default function InputForm() {
             onChange={(e) => handleInputChange(e)}
             placeholder="Your note..."
           />
+
           <button type="submit" className="add-button" onClick={handleAddNote}>
             Add
           </button>
